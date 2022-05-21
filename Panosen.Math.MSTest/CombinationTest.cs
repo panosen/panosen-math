@@ -16,7 +16,7 @@ namespace Panosen.Math.MSTest
         [TestMethod]
         public void TestCombinate()
         {
-            var value = Combination.Combinate(5, 2);
+            var value = Combination.CombinateCount(5, 2);
 
             Assert.AreEqual(10, value);
         }
@@ -38,6 +38,19 @@ namespace Panosen.Math.MSTest
             Assert.IsTrue(items.Contains("23"));
             Assert.IsTrue(items.Contains("24"));
             Assert.IsTrue(items.Contains("34"));
+        }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            List<int> numbers = new List<int> { 1, 2, 3, 4 };
+
+            List<string> expected = new List<string> { "12", "13", "14", "23", "24", "34" };
+
+            Combination.CombinateAction(numbers, 2, item =>
+            {
+                Assert.IsTrue(expected.Contains(string.Join("", item.OrderBy(x => x))));
+            });
         }
     }
 }

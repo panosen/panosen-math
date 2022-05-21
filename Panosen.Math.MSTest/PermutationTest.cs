@@ -11,7 +11,7 @@ namespace Panosen.Math.MSTest
         [TestMethod]
         public void TestPermutate()
         {
-            var value = Permutation.Permutate(5, 2);
+            var value = Permutation.PermutateCount(5, 2);
 
             Assert.AreEqual(20, value);
         }
@@ -51,6 +51,43 @@ namespace Panosen.Math.MSTest
             Assert.IsTrue(items.Contains("4312"));
             Assert.IsTrue(items.Contains("4132"));
             Assert.IsTrue(items.Contains("4123"));
+        }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            List<int> numbers = new List<int> { 1, 2, 3, 4 };
+
+            List<string> expected = new List<string>();
+            expected.Add("1234");
+            expected.Add("1243");
+            expected.Add("1324");
+            expected.Add("1342");
+            expected.Add("1432");
+            expected.Add("1423");
+            expected.Add("2134");
+            expected.Add("2143");
+            expected.Add("2314");
+            expected.Add("2341");
+            expected.Add("2431");
+            expected.Add("2413");
+            expected.Add("3214");
+            expected.Add("3241");
+            expected.Add("3124");
+            expected.Add("3142");
+            expected.Add("3412");
+            expected.Add("3421");
+            expected.Add("4231");
+            expected.Add("4213");
+            expected.Add("4321");
+            expected.Add("4312");
+            expected.Add("4132");
+            expected.Add("4123");
+
+            Permutation.PermutateAction(numbers, item =>
+            {
+                expected.Contains(string.Join("", item));
+            });
         }
     }
 }

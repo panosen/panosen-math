@@ -13,7 +13,7 @@ namespace Panosen.Math
         /// <summary>
         /// 组合
         /// </summary>
-        public static BigInteger Permutate(int from, int count)
+        public static BigInteger PermutateCount(int from, int count)
         {
             BigInteger value = BigInteger.One;
             for (int i = 0; i < count; i++)
@@ -30,17 +30,28 @@ namespace Panosen.Math
         {
             List<List<T>> returnValue = new List<List<T>>();
 
-            DeepFirst(letters.ToArray(), 0, returnValue);
+            DeepFirst(letters.ToArray(), 0, item =>
+            {
+                returnValue.Add(item);
+            });
 
             return returnValue;
         }
 
-        static void DeepFirst<T>(T[] letters, int x, List<List<T>> returnValue)
+        /// <summary>
+        /// 排列
+        /// </summary>
+        public static void PermutateAction<T>(List<T> letters, Action<List<T>> action)
+        {
+            DeepFirst(letters.ToArray(), 0, action);
+        }
+
+        private static void DeepFirst<T>(T[] letters, int x, Action<List<T>> action)
         {
             if (x == letters.Length - 1)
             {
                 // 添加排列方案
-                returnValue.Add(letters.ToList());
+                action(letters.ToList());
                 return;
             }
             HashSet<T> hashSet = new HashSet<T>();
@@ -57,7 +68,7 @@ namespace Panosen.Math
                 Swap(letters, index, x);
 
                 // 开启固定第 x + 1 位字符
-                DeepFirst(letters, x + 1, returnValue);
+                DeepFirst(letters, x + 1, action);
 
                 // 恢复交换
                 Swap(letters, index, x);
